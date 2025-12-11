@@ -1,3 +1,19 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aoc"
+version = "2025.1"
+dependencies = ["httpx", "dotenv"]
+
+[project.scripts]
+aoc = "aoc.__main__:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
 [tool.ruff]
 select = [
     "A",
@@ -14,3 +30,4 @@ select = [
     "UP",
     "W",
 ]
+line-length = 120
