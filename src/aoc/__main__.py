@@ -1,8 +1,8 @@
+from argparse import ArgumentParser, Namespace
 from os import environ
 from pathlib import Path
 
 from aoc.browse import AoC
-from argparse import ArgumentParser, Namespace
 
 
 class Parser(Namespace):
@@ -32,13 +32,17 @@ def cli():
     aoc = AoC(args.year, args.day, args.session)
     day = args.output / str(args.year) / f"{args.year}-{args.day:02}"
 
-    data = day.with_suffix(".txt")
-    if not data.exists():
-        response = aoc.fetch()
-        data.write_text(response.text)
+    validation = day.with_suffix(".txt")
+    if not validation.exists():
+        response = aoc.validation_set()
+        validation.write_text(response.text)
 
-    template = day.with_suffix(".py")
-    if not template.exists():
-        template.write_text(Path(__file__).with_name("template.py").read_text())
+    solution = day.with_suffix(".py")
+    if not solution.exists():
+        solution.write_text(Path(__file__).with_name("template.py").read_text())
 
     aoc.browser()
+
+
+if __name__ == "__main__":
+    raise SystemExit(cli())

@@ -1,8 +1,10 @@
 from pathlib import Path
 
+from rich import print  # noqa: A004
+
 validate = Path(__file__).with_suffix(".txt").read_text().strip()
 example = """
-"""
+""".strip()
 
 
 def parse(raw: str):

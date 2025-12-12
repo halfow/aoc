@@ -1,7 +1,8 @@
+import webbrowser
 from os import environ
 from typing import Literal
+
 from httpx import Client
-import webbrowser
 
 SESSION = environ.get("Session")
 
@@ -15,7 +16,7 @@ class AoC(Client):
         self.year = year
         self.day = day
 
-    def fetch(self):
+    def validation_set(self):
         return self.get(f"{self.year}/day/{self.day}/input")
 
     def submit(self, part: Literal[1, 2], answer):

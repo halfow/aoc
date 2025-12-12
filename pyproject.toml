@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "aoc"
 version = "2025.1"
-dependencies = ["httpx", "dotenv"]
+dependencies = ["httpx", "dotenv", "rich"]
 
 [project.scripts]
 aoc = "aoc.__main__:cli"
@@ -21,6 +21,7 @@ select = [
     "E",
     "F",
     "FLY",
+    "I",
     "NPY",
     "PD",
     "PERF",
@@ -30,4 +31,5 @@ select = [
     "UP",
     "W",
 ]
+ignore = ["PLR2004"]
 line-length = 120
