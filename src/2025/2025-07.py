@@ -23,26 +23,17 @@ example = """
 """.strip()
 
 
-def parse(raw: str) -> list[str]:
-    return raw.split()[::2]
-
-
-parse(example)
-
-
 def part1(raw: str):
-    manifold = iter(parse(raw))
-    splits, beams = 0, {next(manifold).index("S")}
-    for i in manifold:
-        emission: set[int] = set()
-        for b in beams:
-            if i[b] == "^":
-                splits += 1
-                emission.update((b + 1, b - 1))
-            else:
-                emission.add(b)
-        beams = emission
-    return splits
+    manifold = iter(raw.split()[::2])
+    cnt, beams = 0, {next(manifold).index("S")}
+    splitter_rows = [[i for i, c in enumerate(row) if c == "^"] for row in manifold]
+    for splitters in splitter_rows:
+        splits = beams.intersection(splitters)
+        beams.difference_update(splits)
+        beams.update(s + 1 for s in splits)
+        beams.update(s - 1 for s in splits)
+        cnt += len(splits)
+    return cnt
 
 
 print("part1: ", part1(example))
@@ -50,7 +41,7 @@ print("part1: ", part1(validate))
 
 
 def part2(raw: str):
-    manifold = iter(parse(raw))
+    manifold = iter(raw.split()[::2])
     paths = [int(c == "S") for c in next(manifold)]
     splitters = [i for row in manifold for i, c in enumerate(row) if c == "^"]
     for s in splitters:
